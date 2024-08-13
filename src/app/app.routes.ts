@@ -18,8 +18,8 @@ export const routes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
-            { path: 'dish/form', component: DishFormComponent },
             { path: 'dish', component: DishListComponent },
+            { path: 'dish/create', component: DishFormComponent },
             { path: 'inventory/form', component: InventoryFormComponent },
             { path: 'inventory', component: InventoryListComponent },
             { path: 'news/form', component: NewsFormComponent },

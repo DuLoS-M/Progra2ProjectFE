@@ -1,1 +1,5 @@
 <p>dish-form works!</p>
+<!-- <p-fileUpload name="demo[]" url="./upload.php" (uploadHandler)="onUpload($event)" accept="image/*" maxFileSize="1000000"></p-fileUpload> -->
+<p-inputNumber [(ngModel)]="value1" [showButtons]="true" [step]="1" [minFractionDigits]="2" [maxFractionDigits]="2"></p-inputNumber>
+<textarea pInputTextarea  [(ngModel)]="text1" [autoResize]="true" [rows]="3" [cols]="30"></textarea>
+<p-multiSelect [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City"></p-multiSelect>
