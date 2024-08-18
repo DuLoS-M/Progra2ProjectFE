@@ -18,7 +18,7 @@ export const routes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
-            { path: 'dish/form', component: DishFormComponent },
+            { path: 'dish/create', component: DishFormComponent },
             { path: 'dish', component: DishListComponent },
             { path: 'inventory/form', component: InventoryFormComponent },
             { path: 'inventory', component: InventoryListComponent },

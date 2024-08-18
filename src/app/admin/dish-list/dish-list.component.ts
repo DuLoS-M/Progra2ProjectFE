@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dish-list',
   standalone: true,
-  imports: [DataViewModule,ButtonModule, CommonModule],
+  imports: [DataViewModule,ButtonModule, CommonModule, RouterLink],
   templateUrl: './dish-list.component.html',
   styleUrl: './dish-list.component.scss'
 })

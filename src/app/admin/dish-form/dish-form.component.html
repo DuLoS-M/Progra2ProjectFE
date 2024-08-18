@@ -1,1 +1,15 @@
 <p>dish-form works!</p>
+<div class="card flex justify-content-center">
+    <form [formGroup]="formGroup">
+
+        <p-fileUpload mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]"
+            url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000"
+            (onUpload)="onUpload($event)" />
+
+        <p-inputNumber />
+        <textarea rows="2" cols="30" pInputTextarea [autoResize]="true">
+    </textarea>
+        <p-multiSelect [options]="cities" optionLabel="name" placeholder="Select Cities" />
+    </form>
+
+</div>
