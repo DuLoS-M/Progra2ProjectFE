@@ -1,5 +1,15 @@
 <p>dish-form works!</p>
-<!-- <p-fileUpload name="demo[]" url="./upload.php" (uploadHandler)="onUpload($event)" accept="image/*" maxFileSize="1000000"></p-fileUpload> -->
-<p-inputNumber [(ngModel)]="value1" [showButtons]="true" [step]="1" [minFractionDigits]="2" [maxFractionDigits]="2"></p-inputNumber>
-<textarea pInputTextarea  [(ngModel)]="text1" [autoResize]="true" [rows]="3" [cols]="30"></textarea>
-<p-multiSelect [options]="cities" [(ngModel)]="selectedCities1" defaultLabel="Select a City"></p-multiSelect>
+<div class="card flex justify-content-center">
+    <form [formGroup]="formGroup">
+
+        <p-fileUpload mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]"
+            url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000"
+            (onUpload)="onUpload($event)" />
+
+        <p-inputNumber />
+        <textarea rows="2" cols="30" pInputTextarea [autoResize]="true">
+    </textarea>
+        <p-multiSelect [options]="cities" optionLabel="name" placeholder="Select Cities" />
+    </form>
+
+</div>

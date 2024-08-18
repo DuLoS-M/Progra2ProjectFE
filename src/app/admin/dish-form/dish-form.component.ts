@@ -3,38 +3,65 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FileUploadModule } from 'primeng/fileupload';
-import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { HttpClientModule } from '@angular/common/http';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
+
+
+interface UploadEvent {
+    originalEvent: Event;
+    files: File[];
+}
+
+interface City {
+    name: string,
+    code: string
+}
 
 @Component({
   selector: 'app-dish-form',
   standalone: true,
-  imports: [InputNumberModule,
+  imports: [
+    InputNumberModule,
     InputTextareaModule,
-    MultiSelectModule, 
+    MultiSelectModule,
+    RouterLink,
     FileUploadModule,
-    FormsModule
+    ToastModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    CommonModule
   ],
+  providers: [MessageService],
   templateUrl: './dish-form.component.html',
-  styleUrl: './dish-form.component.scss'
+  styleUrls: ['./dish-form.component.scss'] 
 })
 export class DishFormComponent {
-  value1!: number;
-  text1!: string;
-  selectedCities1!: any[];
+    constructor(private messageService: MessageService) {}
+    cities!: City[];
+    selectedCities!: City[];
+    formGroup!: FormGroup;
 
-  value!: number;
-  cities: any[] = [
-    { label: 'New York', value: 'NY' },
-    { label: 'Rome', value: 'RM' },
-    { label: 'London', value: 'LDN' },
-    { label: 'Istanbul', value: 'IST' },
-    { label: 'Paris', value: 'PRS' }
-  ];
-  selectedCities!: any[];
 
-  onUpload(event: any) {
-    // Handle the file upload event
-    console.log('File uploaded:', event);
-  }
+    onUpload(event: any) {
+        this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
+    }
+
+    ngOnInit() {
+        this.cities = [
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
+        ];
+        this.formGroup = new FormGroup({
+            text: new FormControl<string | null>(null)
+        });
+    }
+
 }
