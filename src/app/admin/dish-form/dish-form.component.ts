@@ -60,7 +60,9 @@ export class DishFormComponent {
             {name: 'Paris', code: 'PRS'}
         ];
         this.formGroup = new FormGroup({
-            text: new FormControl<string | null>(null)
+            value: new FormControl<string | null>(null),
+            description: new FormControl<string | null>(null),
+            selectedCities: new FormControl<City[]>([]),
         });
     }
 
