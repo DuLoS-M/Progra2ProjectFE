@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -9,17 +9,17 @@ import { ToastModule } from 'primeng/toast';
 import { HttpClientModule } from '@angular/common/http';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-
+import { DishService } from '../../shared/service/dish.service';
+import { Inject } from '@angular/core';
 
 interface UploadEvent {
-    originalEvent: Event;
-    files: File[];
+  originalEvent: Event;
+  files: File[];
 }
 
 interface City {
-    name: string,
-    code: string
+  name: string;
+  code: string;
 }
 
 @Component({
@@ -34,36 +34,42 @@ interface City {
     ToastModule,
     HttpClientModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
   ],
   providers: [MessageService],
   templateUrl: './dish-form.component.html',
-  styleUrls: ['./dish-form.component.scss'] 
+  styleUrls: ['./dish-form.component.scss'],
 })
 export class DishFormComponent {
-    constructor(private messageService: MessageService) {}
-    cities!: City[];
-    selectedCities!: City[];
-    formGroup!: FormGroup;
+  constructor(private messageService: MessageService) {}
+  dishService: DishService = inject(DishService);
+  cities!: City[];
+  selectedCities!: City[];
+  formGroup!: FormGroup;
 
+  onUpload(event: any) {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Success',
+      detail: 'File Uploaded with Basic Mode',
+    });
+  }
+  getDishesTest() {
+    console.log(this.dishService.getDishes());
+  }
 
-    onUpload(event: any) {
-        this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
-    }
-
-    ngOnInit() {
-        this.cities = [
-            {name: 'New York', code: 'NY'},
-            {name: 'Rome', code: 'RM'},
-            {name: 'London', code: 'LDN'},
-            {name: 'Istanbul', code: 'IST'},
-            {name: 'Paris', code: 'PRS'}
-        ];
-        this.formGroup = new FormGroup({
-            value: new FormControl<string | null>(null),
-            description: new FormControl<string | null>(null),
-            selectedCities: new FormControl<City[]>([]),
-        });
-    }
-
+  ngOnInit() {
+    this.cities = [
+      { name: 'New York', code: 'NY' },
+      { name: 'Rome', code: 'RM' },
+      { name: 'London', code: 'LDN' },
+      { name: 'Istanbul', code: 'IST' },
+      { name: 'Paris', code: 'PRS' },
+    ];
+    this.formGroup = new FormGroup({
+      value: new FormControl<string | null>(null),
+      description: new FormControl<string | null>(null),
+      selectedCities: new FormControl<City[]>([]),
+    });
+  }
 }
