@@ -19,6 +19,6 @@ import { urlInterceptor } from '../interceptors';
     // other components
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
-  providers: [],
+  providers: [provideHttpClient()],
 })
 export class AppModule {}

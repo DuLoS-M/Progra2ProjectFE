@@ -12,7 +12,7 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { HttpInterceptorFn } from '@angular/common/http';
 
-const baseURL = 'http://localhost:8080/';
+const baseURL = 'http://localhost:8080';
 
 export const urlInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
@@ -38,12 +38,12 @@ export const urlInterceptor: HttpInterceptorFn = (
   );
 };
 
-export const loggingInterceptorFunctional: HttpInterceptorFn = (req, next) => {
-  console.log('Request URL: ' + req.url);
-  return next(req).pipe(
-    catchError((error: HttpErrorResponse) => {
-      console.error('Logging Interceptor Functional Error:', error);
-      return throwError(() => error);
-    })
-  );
-};
+// export const loggingInterceptorFunctional: HttpInterceptorFn = (req, next) => {
+//   console.log('Request URL: ' + req.url);
+//   return next(req).pipe(
+//     catchError((error: HttpErrorResponse) => {
+//       console.error('Logging Interceptor Functional Error:', error);
+//       return throwError(() => error);
+//     })
+//   );
+// };

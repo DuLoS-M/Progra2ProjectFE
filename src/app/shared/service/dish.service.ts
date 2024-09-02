@@ -8,24 +8,37 @@ export class DishService {
   constructor(private http: HttpClient) {}
 
   getDishes() {
-    const dishes: any = this.http.get('http://localhost:8080/dishes');
-    console.log('getDishes');
-    return dishes;
+    this.http.get('dishes').subscribe((data) => {
+      console.log(data);
+      return data;
+    });
   }
 
   getDish(id: number) {
-    return this.http.get(`/dishes/${id}`);
+    return this.http.get(`dishes/${id}`).subscribe((data) => {
+      console.log(data);
+      return data;
+    });
   }
 
   addDish(dish: any) {
-    return this.http.post('/dishes', dish);
+    return this.http.post('dishes', dish).subscribe((data) => {
+      console.log(data);
+      return data;
+    });
   }
 
   updateDish(dish: any) {
-    return this.http.put(`dishes/${dish.id}`, dish);
+    return this.http.put(`dishes/${dish.id}`, dish).subscribe((data) => {
+      console.log(data);
+      return data;
+    });
   }
 
   deleteDish(id: number) {
-    return this.http.delete(`dishes/${id}`);
+    return this.http.delete(`dishes/${id}`).subscribe((data) => {
+      console.log(data);
+      return data;
+    });
   }
 }
