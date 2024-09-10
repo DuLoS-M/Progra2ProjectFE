@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { InputTextModule } from 'primeng/inputtext';
 import { FileUploadModule } from 'primeng/fileupload';
 import { RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -26,6 +27,7 @@ interface City {
   selector: 'app-dish-form',
   standalone: true,
   imports: [
+    InputTextModule,
     InputNumberModule,
     InputTextareaModule,
     MultiSelectModule,
@@ -46,16 +48,18 @@ export class DishFormComponent {
   cities!: City[];
   selectedCities!: City[];
   formGroup!: FormGroup;
+  dishImage!: any;
 
   onUpload(event: any) {
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Success',
-      detail: 'File Uploaded with Basic Mode',
-    });
+    this.dishImage = event.files[0];
+    console.log(event);
   }
   getDishesTest() {
     console.log(this.dishService.getDishes());
+  }
+
+  onSubmit() {
+    console.log(this.formGroup.value);
   }
 
   ngOnInit() {
@@ -67,9 +71,10 @@ export class DishFormComponent {
       { name: 'Paris', code: 'PRS' },
     ];
     this.formGroup = new FormGroup({
-      value: new FormControl<string | null>(null),
-      description: new FormControl<string | null>(null),
-      selectedCities: new FormControl<City[]>([]),
+      price: new FormControl<number | null>(null),
+      name: new FormControl<string | null>(null),
+      description: new FormControl<City[]>([]),
+      Ingredients: new FormControl<City[]>([]),
     });
   }
 }
