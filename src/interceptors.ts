@@ -12,7 +12,7 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { HttpInterceptorFn } from '@angular/common/http';
 
-const baseURL = 'http://localhost:8080';
+const baseURL = 'http://localhost:8080/api';
 
 export const urlInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,

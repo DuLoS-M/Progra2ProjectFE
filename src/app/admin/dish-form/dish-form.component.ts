@@ -4,7 +4,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextModule } from 'primeng/inputtext';
 import { FileUploadModule } from 'primeng/fileupload';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,18 +37,23 @@ interface City {
     HttpClientModule,
     ReactiveFormsModule,
     CommonModule,
+    RouterLink,
   ],
   providers: [MessageService],
   templateUrl: './dish-form.component.html',
   styleUrls: ['./dish-form.component.scss'],
 })
 export class DishFormComponent {
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private route: ActivatedRoute
+  ) {}
   dishService: DishService = inject(DishService);
   cities!: City[];
   selectedCities!: City[];
   formGroup!: FormGroup;
   dishImage!: any;
+  selectedId!: number;
 
   onUpload(event: any) {
     this.dishImage = event.files[0];
@@ -59,6 +64,14 @@ export class DishFormComponent {
   }
 
   onSubmit() {
+    if (this.dishImage === undefined) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Please select an image',
+      });
+      return;
+    }
     console.log(this.formGroup.value);
   }
 

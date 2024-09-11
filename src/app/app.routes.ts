@@ -10,25 +10,28 @@ import { OrderListComponent } from './admin/orders/order-list/order-list.compone
 import { OrdersDetailComponent } from './admin/orders/orders-detail/orders-detail.component';
 import { ProfileComponent } from './admin/profile/profile.component';
 import { LayoutComponent } from './layout/layout.component';
+import { UserListComponent } from './admin/users/user-list/user-list.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
-    {
-        path: '',
-        component: LayoutComponent,
-        children: [
-            { path: 'dish/create', component: DishFormComponent },
-            { path: 'dish', component: DishListComponent },
-            { path: 'dish/create', component: DishFormComponent },
-            { path: 'inventory/form', component: InventoryFormComponent },
-            { path: 'inventory', component: InventoryListComponent },
-            { path: 'news/form', component: NewsFormComponent },
-            { path: 'news', component: NewsListComponent },
-            { path: 'orders', component: OrderListComponent },
-            { path: 'orders/:id', component: OrdersDetailComponent },
-            { path: 'profile', component: ProfileComponent },
-        ]
-    },
-    { path: '**', redirectTo: 'login' }
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      { path: 'dish/create', component: DishFormComponent },
+      { path: 'dish', component: DishListComponent },
+      { path: 'dish/create', component: DishFormComponent },
+      { path: 'inventory/create', component: InventoryFormComponent },
+      { path: 'inventory', component: InventoryListComponent },
+      { path: 'inventory/edit/:id', component: InventoryFormComponent },
+      { path: 'news/create', component: NewsFormComponent },
+      { path: 'news', component: NewsListComponent },
+      { path: 'orders', component: OrderListComponent },
+      { path: 'orders/:id', component: OrdersDetailComponent },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'users', component: UserListComponent },
+    ],
+  },
+  { path: '**', redirectTo: 'login' },
 ];
