@@ -1,20 +1,35 @@
 <p-toast />
 <div class="card flex">
-    <form [formGroup]="formGroup" class="flex-grow" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="value">Name:</label>
-            <input pInputText id="value" formControlName="name" placeholder="Enter a name" />
-        </div>
-        <div class="form-group">
-            <label for="value">Quantity:</label>
-            <p-inputNumber id="value" formControlName="quantity" placeholder="Enter a value"></p-inputNumber>
-        </div>
-        <div class="form-group">
-            <label for="value">Unit:</label>
-            <input pInputText id="unit" formControlName="unit" placeholder="Enter a value" />
-        </div>
-
-        <p-button type="submit">Submit</p-button>
-    </form>
+        <form [formGroup]="formGroup" class="flex-grow" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="value">Title:</label>
+                <input pInputText id="value" formControlName="title" placeholder="Enter a name" />
+            </div>
+            <div class="form-group">
+                <label for="description">Content:</label>
+                <textarea id="description" rows="2" cols="30" pInputTextarea [autoResize]="true" formControlName="content"
+                    placeholder="Enter a description"></textarea>
+            </div>
+        
+            <div class="form-group">
+                <label for="fileUpload">Image:</label>
+                <p-fileUpload [auto]="true" id="fileUpload" mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload"
+                    name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000"
+                    (onUpload)="onUpload($event)">
+                </p-fileUpload>
+                <div *ngIf="newsImage">
+                    <div class="flex flex-wrap flex-left p-0 sm:p-1 gap-1">
+                        <div class="card m-0 px-6 flex flex-col items-center border-1 surface-border align-items-center gap-3">
+                            <div>
+                                <img role="presentation" [alt]="newsImage.name" [src]="newsImage.objectURL" height="200" />
+                            </div>
+                            <span class="font-semibold">{{ newsImage.name }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <p-button type="submit">Submit</p-button>
+        </form>
     <!-- <p-button (onClick)="getDishesTest()">Reset</p-button> -->
 </div>

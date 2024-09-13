@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { UserService } from '../../../shared/service/user.service';
+import type { User } from '../../../shared/types/types';
 
 @Component({
   selector: 'app-user-list',
@@ -11,26 +13,13 @@ import { RouterLink } from '@angular/router';
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
 })
-export class UserListComponent {
-  products: any[] = [];
+export class UserListComponent implements OnInit {
+  constructor(private userService: UserService) {}
+  users: User[] = [];
 
   ngOnInit() {
-    this.products = [
-      {
-        name: 'Dish 1',
-        category: 'Category 1',
-        rating: 4.5,
-        price: 10,
-        inventoryStatus: 'INSTOCK',
-      },
-      {
-        name: 'Dish 2',
-        category: 'Category 2',
-        rating: 3.8,
-        price: 15,
-        inventoryStatus: 'OUTOFSTOCK',
-      },
-      // Add more products as needed
-    ];
+    this.userService.getUserList().subscribe((data) => {
+      this.users = data;
+    });
   }
 }
