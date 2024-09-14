@@ -21,3 +21,12 @@ export interface News {
   // publishedAt: Date;
   // updatedAt: Date;
 }
+
+export interface Dish {
+  id?: number;
+  name: string;
+  description: string;
+  price: number;
+  photoUrl?: string | File;
+  ingredients: Ingredient[];
+}
