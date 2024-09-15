@@ -1,24 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Dish } from '../../shared/types/types';
+import { DishService } from '../../shared/service/dish.service';
+import { CardModule } from 'primeng/card';
+import { ChipModule } from 'primeng/chip';
 
 @Component({
   selector: 'app-dish-list',
   standalone: true,
-  imports: [DataViewModule,ButtonModule, CommonModule, RouterLink],
+  imports: [
+    DataViewModule,
+    ButtonModule,
+    CommonModule,
+    RouterLink,
+    CardModule,
+    ChipModule,
+  ],
   templateUrl: './dish-list.component.html',
-  styleUrl: './dish-list.component.scss'
+  styleUrl: './dish-list.component.scss',
 })
-export class DishListComponent {
-   products: any[] = [];
+export class DishListComponent implements OnInit {
+  constructor(private dishService: DishService) {}
+  dishes: Dish[] = [];
+
+  editDish(id: any) {}
+
+  deleteDish(id: any) {
+    this.dishService.deleteDish(id).subscribe(() => {
+      this.dishes = this.dishes.filter((dish) => dish.id !== id);
+    });
+  }
 
   ngOnInit() {
-    this.products = [
-      { name: 'Dish 1', category: 'Category 1', rating: 4.5, price: 10, inventoryStatus: 'INSTOCK' },
-      { name: 'Dish 2', category: 'Category 2', rating: 3.8, price: 15, inventoryStatus: 'OUTOFSTOCK' },
-      // Add more products as needed
-    ];
+    this.dishService.getDishList().subscribe((dishes) => {
+      this.dishes = dishes;
+    });
   }
 }

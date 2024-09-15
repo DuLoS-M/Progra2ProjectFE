@@ -1,5 +1,5 @@
 <p-toast></p-toast>
-<a routerLink="../" class="p-button font-bold mb-4">
+<a routerLink="/dish" class="p-button font-bold mb-4">
     Go back
 </a>
 <div class="card flex flex-col gap-4 p-6 bg-gray-800 text-white rounded-lg shadow-lg">
@@ -12,7 +12,10 @@
             <label for="price" class="block text-sm font-medium text-gray-300">Price:</label>
             <p-inputNumber id="price" formControlName="price" placeholder="Enter a value"></p-inputNumber>
         </div>
-        <form [formGroup]="ingredientGoup" class="space-y-4" (ngSubmit)="onSubmit()">
+        <form [formGroup]="ingredientGoup" class="space-y-1" (ngSubmit)="onSubmit()">
+            <div>
+                Ingredient:
+            </div>
             <div class="flex flex-col sm:flex-row gap-2 ">
                 <p-autoComplete formControlName="ingredient" [dropdown]="true" [suggestions]="filteredIngredients"
                     (completeMethod)="filterIngredients($event)" field="name" placeholder="Select ingredient"/>

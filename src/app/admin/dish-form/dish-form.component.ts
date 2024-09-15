@@ -15,6 +15,7 @@ import { InventoryService } from '../../shared/service/inventory.service';
 import { Ingredient } from '../../shared/types/types';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TableModule } from 'primeng/table';
+import { switchMap } from 'rxjs';
 
 interface UploadEvent {
   originalEvent: Event;
@@ -36,6 +37,7 @@ interface SelectedIngredients {
   name: string;
   quantity: number;
 }
+
 @Component({
   selector: 'app-dish-form',
   standalone: true,
@@ -71,7 +73,7 @@ export class DishFormComponent {
   dishImage!: any;
   selectedId!: number;
   filteredIngredients!: Ingredient[];
-  selectedIngredients!: SelectedIngredients[];
+  selectedIngredients: SelectedIngredients[] = [];
 
   onUpload(event: any) {
     this.dishImage = event.files[0];
@@ -88,12 +90,10 @@ export class DishFormComponent {
       return;
     }
 
-    this.formGroup.patchValue({ Ingredients: this.selectedIngredients });
-    console.log(this.formGroup.value);
+    this.formGroup.patchValue({ ingredients: this.selectedIngredients });
 
     if (this.selectedId) {
       this.formGroup.patchValue({ photoUrl: this.dishImage });
-      this.formGroup.patchValue({ Ingredients: this.selectedIngredients });
 
       this.dishService
         .updateDish(this.selectedId, this.formGroup.value)
@@ -115,7 +115,10 @@ export class DishFormComponent {
         );
       return;
     }
+
+    console.log(this.selectedIngredients);
     this.formGroup.patchValue({ photoUrl: this.dishImage });
+    console.log(this.formGroup.value);
     this.dishService.addDish(this.formGroup.value).subscribe(
       (response) => {
         this.messageService.add({
@@ -163,21 +166,48 @@ export class DishFormComponent {
       price: new FormControl<number | null>(null),
       name: new FormControl<string | null>(null),
       description: new FormControl<string | null>(null),
-      Ingredients: new FormControl<SelectedIngredients[]>([]),
+      ingredients: new FormControl<SelectedIngredients[]>([]),
+      photoUrl: new FormControl<File | null>(null),
     });
 
     this.ingredientGoup = new FormGroup({
-      ingredient: new FormControl<string | null>(null),
+      ingredient: new FormControl<Ingredient | null>(null),
       quantity: new FormControl<number | null>(null),
     });
+
+    this.route.paramMap
+      .pipe(
+        switchMap((params: any): any => {
+          this.selectedId = Number(params.get('id'));
+          return this.dishService.getDish(this.selectedId);
+        })
+      )
+      .subscribe(
+        (dish: any) => {
+          console.log({ dish });
+          this.formGroup.patchValue({ photoUrl: dish.photoUrl });
+          this.formGroup.patchValue(dish);
+          this.dishImage = { objectURL: dish.photoUrl, name: dish.title };
+          this.selectedIngredients = dish.dishIngredients.map((item: any) => {
+            return {
+              id: item.ingredient.id,
+              name: item.ingredient.name,
+              quantity: item.quantityRequired,
+            };
+          });
+        },
+        (error) => {
+          console.error('Error fetching ingredient:', error);
+        }
+      );
   }
 
   filterIngredients(event: AutoCompleteCompleteEvent) {
     let filtered: any[] = [];
     let query = event.query;
 
-    for (let i = 0; i < (this.ingredients as any[]).length; i++) {
-      let ingredient = (this.ingredients as any[])[i];
+    for (let i = 0; i < this.ingredients.length; i++) {
+      let ingredient = this.ingredients[i];
       if (ingredient.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         filtered.push(ingredient);
       }

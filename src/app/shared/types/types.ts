@@ -29,4 +29,5 @@ export interface Dish {
   price: number;
   photoUrl?: string | File;
   ingredients: Ingredient[];
+  dishIngredients?: any[];
 }
