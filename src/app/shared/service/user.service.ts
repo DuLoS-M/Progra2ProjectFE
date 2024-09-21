@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { User } from '../types/types';
+import { LoginUser, User } from '../types/types';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +34,12 @@ export class UserService {
   deleteUser(id: number): Observable<void> {
     return this.http
       .delete<void>(`users/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  login(User: LoginUser): Observable<User> {
+    return this.http
+      .post<User>('users/login', User)
       .pipe(catchError(this.handleError));
   }
 

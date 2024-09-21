@@ -13,6 +13,12 @@ export interface User {
   role: string;
 }
 
+export interface LoginUser {
+  email: string;
+  password: string;
+  role: string;
+}
+
 export interface News {
   id?: number;
   title: string;

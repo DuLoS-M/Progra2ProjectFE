@@ -5,18 +5,30 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { News } from '../../../shared/types/types';
 import { NewsService } from '../../../shared/service/news.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-news-list',
   standalone: true,
-  imports: [DataViewModule, ButtonModule, CommonModule, RouterLink],
+  imports: [
+    DataViewModule,
+    ButtonModule,
+    CommonModule,
+    RouterLink,
+    ToastModule,
+  ],
+  providers: [MessageService],
   templateUrl: './news-list.component.html',
   styleUrl: './news-list.component.scss',
 })
 export class NewsListComponent {
   news!: News[];
 
-  constructor(private newsService: NewsService) {}
+  constructor(
+    private newsService: NewsService,
+    private messageService: MessageService
+  ) {}
 
   deleteNews(id: number) {
     this.newsService.deleteNews(id).subscribe(() => {
