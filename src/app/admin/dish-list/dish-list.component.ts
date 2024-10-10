@@ -29,8 +29,10 @@ export class DishListComponent implements OnInit {
   editDish(id: any) {}
 
   deleteDish(id: any) {
-    this.dishService.deleteDish(id).subscribe(() => {
-      this.dishes = this.dishes.filter((dish) => dish.id !== id);
+    console.log(id);
+    this.dishService.deleteDish(id.id).subscribe(() => {
+      console.log('subscribed');
+      this.dishes = this.dishes.filter((dish) => dish.id !== id.id);
     });
   }
 
