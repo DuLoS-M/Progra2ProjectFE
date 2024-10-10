@@ -11,6 +11,7 @@ import { OrdersDetailComponent } from './admin/orders/orders-detail/orders-detai
 import { ProfileComponent } from './admin/profile/profile.component';
 import { LayoutComponent } from './layout/layout.component';
 import { UserListComponent } from './admin/users/user-list/user-list.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -18,6 +19,7 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivate: [AuthGuard], // Apply the AuthGuard to the parent route
     children: [
       { path: 'dish', component: DishListComponent },
       { path: 'dish/create', component: DishFormComponent },

@@ -27,12 +27,12 @@ export class LoginComponent implements OnInit {
       const { email, password } = this.formGroup.value;
       const res = this.userService
         .login({ email: email, password, role: 'ADMIN' })
-        .subscribe();
-      if (res) {
-        console.log('Login success');
-        console.log({ res });
-        this.router.navigate(['/dish']);
-      }
+        .subscribe((res) => {
+          console.log('Login success');
+          console.log({ res });
+          this.router.navigate(['/dish']);
+          localStorage.setItem('userId', res.id!.toString());
+        });
     }
   }
 

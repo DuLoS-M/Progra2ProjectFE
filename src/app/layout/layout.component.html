@@ -1,5 +1,8 @@
 <p-menubar [model]="menuItems">
-    <p-avatar label="T" styleClass="mr-2" />
+    <button pButton type="button" class="p-avatar-button" (click)="menu.toggle($event)">
+        <p-avatar label="T" styleClass="mr-2" />
+    </button>
+    <p-menu #menu [popup]="true" [model]="profileMenuItems"></p-menu>
 </p-menubar>
 <main class="main-content">
     <router-outlet></router-outlet>

@@ -25,6 +25,12 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
+  updatePassword(id: number | string, password: string): Observable<User> {
+    return this.http
+      .put<User>(`users/${id}/password`, { password })
+      .pipe(catchError(this.handleError));
+  }
+
   updateUser(id: number, User: User): Observable<User> {
     return this.http
       .put<User>(`users/${id}`, User)
