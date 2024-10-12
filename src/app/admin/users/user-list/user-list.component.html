@@ -1,15 +1,17 @@
-<p>user-list works!</p>
+<p>User list</p>
 <p-dataView #dv [value]="users">
-    <ng-template pTemplate="list" let-users>
-        <div class="grid grid-cols-1 gap-4">
-            <div class="col-span-1" *ngFor="let user of users; let first = first">
-                <div class="flex flex-col sm:flex-row sm:items-center p-4 gap-3">
-                    <div>{{user.firstName}}</div>
-                    <div>{{user.lastName}}</div>
-                    <div>{{user.email}}</div>
-                    <div>{{user.role}}</div>
-                </div>
-            </div>
+  <ng-template pTemplate="listItem" let-user>
+    <div
+      class="flex flex-col sm:flex-row sm:items-center p-4 m-2 gap-4 bg-gray-700 text-white rounded-lg shadow-md"
+      *ngFor="let user of users; let first = first"
+    >
+      <div class="flex-1 m-2">
+        <div class="text-lg font-semibold">
+          {{ user.firstName }} {{ user.lastName }}
         </div>
-    </ng-template>
+        <div class="text-sm text-gray-400">{{ user.email }}</div>
+        <div class="text-sm text-gray-400">{{ user.role }}</div>
+      </div>
+    </div>
+  </ng-template>
 </p-dataView>

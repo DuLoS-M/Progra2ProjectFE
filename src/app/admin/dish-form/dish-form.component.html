@@ -1,79 +1,148 @@
 <p-toast></p-toast>
-<a routerLink="/dish" class="p-button font-bold mb-4">
-    Go back
-</a>
-<div class="card flex flex-col gap-4 p-6 bg-gray-800 text-white rounded-lg shadow-lg">
-    <form [formGroup]="formGroup" class="flex-grow space-y-4" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="name" class="block text-sm font-medium text-gray-300">Name:</label>
-            <input pInputText id="name" formControlName="name" placeholder="Enter a name" />
-        </div>
-        <div class="form-group">
-            <label for="price" class="block text-sm font-medium text-gray-300">Price:</label>
-            <p-inputNumber id="price" formControlName="price" placeholder="Enter a value"></p-inputNumber>
-        </div>
-        <form [formGroup]="ingredientGoup" class="space-y-1" (ngSubmit)="onSubmit()">
-            <div>
-                Ingredient:
-            </div>
-            <div class="flex flex-col sm:flex-row gap-2 ">
-                <p-autoComplete formControlName="ingredient" [dropdown]="true" [suggestions]="filteredIngredients"
-                    (completeMethod)="filterIngredients($event)" field="name" placeholder="Select ingredient"/>
-                <p-inputNumber formControlName="quantity" placeholder="Enter a quantity"></p-inputNumber>
-                <p-button (onClick)="addIngredient()" label="Add" class="mt-1 block w-full sm:w-auto"></p-button>
-            </div>
-        </form>
-        <div class="card p-4 border border-gray-600 rounded-md shadow-sm bg-gray-700">
-            <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
-                <div>
-                    <span class="font-medium text-green-400 text-sm">Ingredients</span>
-                </div>
-            </div>
-            <p-table [value]="selectedIngredients" [tableStyle]="{'min-width': '50rem'}">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th class="text-gray-300">Name</th>
-                        <th class="text-gray-300">Quantity</th>
-                        <th class="text-gray-300">Actions</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-ingredient>
-                    <tr>
-                        <td>{{ingredient.name}}</td>
-                        <td>{{ingredient.quantity}}</td>
-                        <td>
-                            <a (click)="removeIngredient(ingredient)" class="p-button p-button-rounded p-button-danger">
-                                Remove
-                            </a>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-        <div class="form-group">
-            <label for="description" class="block text-sm font-medium text-gray-300">Description:</label>
-            <textarea id="description" rows="2" cols="30" pInputTextarea [autoResize]="true"
-                formControlName="description" placeholder="Enter a description"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="fileUpload" class="block text-sm font-medium text-gray-300">Image:</label>
-            <p-fileUpload [auto]="true" id="fileUpload" mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload"
-                name="demo[]"  accept="image/*" maxFileSize="1000000"
-                (onUpload)="onUpload($event)">
-            </p-fileUpload>
-            <div *ngIf="dishImage" class="mt-4">
-                <div class="flex flex-wrap justify-center p-0 sm:p-1 gap-1">
-                    <div
-                        class="card m-0 px-6 flex flex-col items-center border border-gray-600 bg-gray-700 rounded-md shadow-sm align-items-center gap-3">
-                        <div>
-                            <img role="presentation" [alt]="dishImage.name" [src]="dishImage.objectURL" height="200"
-                                class="rounded-md" />
-                        </div>
-                        <span class="font-semibold text-gray-300">{{ dishImage.name }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <p-button type="submit" label="Submit" class="w-full sm:w-auto"></p-button>
+<a routerLink="/dish" class="p-button font-bold mb-4"> Go back </a>
+<div
+  class="card flex flex-col gap-4 p-6 bg-gray-800 text-white rounded-lg shadow-lg"
+>
+  <form
+    [formGroup]="formGroup"
+    class="flex-grow space-y-4"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="form-group">
+      <label for="name" class="block text-sm font-medium text-gray-300"
+        >Name:</label
+      >
+      <input
+        pInputText
+        id="name"
+        formControlName="name"
+        placeholder="Enter a name"
+      />
+    </div>
+    <div class="form-group">
+      <label for="price" class="block text-sm font-medium text-gray-300"
+        >Price:</label
+      >
+      <p-inputNumber
+        id="price"
+        formControlName="price"
+        placeholder="Enter a value"
+      ></p-inputNumber>
+    </div>
+    <form
+      [formGroup]="ingredientGoup"
+      class="space-y-1"
+      (ngSubmit)="onSubmit()"
+    >
+      <div>Ingredient:</div>
+      <div class="flex flex-col sm:flex-row gap-2">
+        <p-autoComplete
+          formControlName="ingredient"
+          [dropdown]="true"
+          [suggestions]="filteredIngredients"
+          (completeMethod)="filterIngredients($event)"
+          field="name"
+          placeholder="Select ingredient"
+        />
+        <p-inputNumber
+          formControlName="quantity"
+          placeholder="Enter a quantity"
+        ></p-inputNumber>
+        <p-button
+          (onClick)="addIngredient()"
+          label="Add"
+          class="mt-1 block w-full sm:w-auto"
+        ></p-button>
+      </div>
     </form>
+    <div
+      class="card p-4 border border-gray-600 rounded-md shadow-sm bg-gray-700"
+    >
+      <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
+        <div>
+          <span class="font-medium text-green-400 text-sm">Ingredients</span>
+        </div>
+      </div>
+      <p-table
+        [value]="selectedIngredients"
+        [tableStyle]="{ 'min-width': '50rem' }"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="text-gray-300">Name</th>
+            <th class="text-gray-300">Quantity</th>
+            <th class="text-gray-300">Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ingredient>
+          <tr>
+            <td>{{ ingredient.name }}</td>
+            <td>{{ ingredient.quantity }}</td>
+            <td>
+              <a
+                (click)="removeIngredient(ingredient)"
+                class="p-button p-button-rounded p-button-danger"
+              >
+                Remove
+              </a>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="form-group">
+      <label for="description" class="block text-sm font-medium text-gray-300"
+        >Description:</label
+      >
+      <textarea
+        id="description"
+        rows="2"
+        cols="30"
+        pInputTextarea
+        [autoResize]="true"
+        formControlName="description"
+        placeholder="Enter a description"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="fileUpload" class="block text-sm font-medium text-gray-300"
+        >Image:</label
+      >
+      <p-fileUpload
+        [auto]="true"
+        id="fileUpload"
+        mode="basic"
+        chooseLabel="Choose"
+        chooseIcon="pi pi-upload"
+        name="demo[]"
+        url="https://your-upload-url.com/upload"
+        accept="image/*"
+        maxFileSize="1000000"
+        (onUpload)="onUpload($event)"
+        (onSelect)="onSelect($event)"
+      >
+      </p-fileUpload>
+      <div *ngIf="dishImage" class="mt-4">
+        <div class="flex flex-wrap justify-center p-0 sm:p-1 gap-1">
+          <div
+            class="card m-0 px-6 flex flex-col items-center border border-gray-600 bg-gray-700 rounded-md shadow-sm align-items-center gap-3"
+          >
+            <div>
+              <img
+                role="presentation"
+                [alt]="dishImage.name"
+                [src]="dishImage.objectURL"
+                height="200"
+                class="rounded-md"
+              />
+            </div>
+            <span class="font-semibold text-gray-300">{{
+              dishImage.name
+            }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-button type="submit" label="Submit" class="w-full sm:w-auto"></p-button>
+  </form>
 </div>

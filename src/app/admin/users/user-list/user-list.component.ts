@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../../shared/service/user.service';
 import type { User } from '../../../shared/types/types';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-user-list',

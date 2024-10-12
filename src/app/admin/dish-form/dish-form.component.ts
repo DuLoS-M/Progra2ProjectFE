@@ -75,9 +75,14 @@ export class DishFormComponent {
   filteredIngredients!: Ingredient[];
   selectedIngredients: SelectedIngredients[] = [];
 
-  onUpload(event: any) {
+  onUpload(event: any): void {
     this.dishImage = event.files[0];
-    console.log(event);
+    console.log('File uploaded:', this.dishImage);
+  }
+
+  onSelect(event: any): void {
+    this.dishImage = event.files[0];
+    console.log('File selected:', this.dishImage);
   }
 
   onSubmit() {
