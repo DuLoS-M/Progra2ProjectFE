@@ -58,7 +58,7 @@
         <div class="form-group">
             <label for="fileUpload" class="block text-sm font-medium text-gray-300">Image:</label>
             <p-fileUpload [auto]="true" id="fileUpload" mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload"
-                name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000"
+                name="demo[]"  accept="image/*" maxFileSize="1000000"
                 (onUpload)="onUpload($event)">
             </p-fileUpload>
             <div *ngIf="dishImage" class="mt-4">
