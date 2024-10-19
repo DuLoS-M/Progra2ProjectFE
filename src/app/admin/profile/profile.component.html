@@ -3,18 +3,13 @@
         <h2 class="text-2xl font-bold mb-4">Profile</h2>
         <div class="mb-6">
             <h3 class="text-xl font-semibold">User Information</h3>
-            <p class="text-gray-400">Name: {{ user.name }}</p>
+            <p class="text-gray-400">Name: {{ user.firstName }} {{ user.lastName }}</p>
             <p class="text-gray-400">Email: {{ user.email }}</p>
+            <!-- <p class="text-gray-400">NIT: {{ user.nit }}</p> -->
         </div>
         <div>
             <h3 class="text-xl font-semibold mb-4">Change Password</h3>
             <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
-                <!-- <div class="mb-4">
-                    <label for="currentPassword" class="block text-sm font-medium text-gray-300">Current
-                        Password</label>
-                    <input id="currentPassword" type="password" formControlName="currentPassword"
-                        class="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-                </div> -->
                 <div class="mb-4">
                     <label for="newPassword" class="block text-sm font-medium text-gray-300">New Password</label>
                     <input id="newPassword" type="password" formControlName="newPassword"

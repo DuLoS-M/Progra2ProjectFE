@@ -1,1 +1,39 @@
-<p>order-list works!</p>
+<div class="container mx-auto p-4">
+    <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-4">Order Management</h2>
+        <form [formGroup]="searchForm" (ngSubmit)="searchOrders()">
+            <div class="mb-4">
+                <label for="searchTerm" class="block text-sm font-medium text-gray-300">Search Orders</label>
+                <input id="searchTerm" type="text" formControlName="searchTerm"
+                    class="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            </div>
+            <button type="submit" class="p-button p-button-rounded p-button-success w-full sm:w-auto">Search</button>
+        </form>
+        <div class="mt-6">
+            <h3 class="text-xl font-semibold mb-4">Orders</h3>
+            <table class="min-w-full bg-gray-700">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2">Order Number</th>
+                        <th class="px-4 py-2">Customer Name</th>
+                        <th class="px-4 py-2">Status</th>
+                        <th class="px-4 py-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let order of orders">
+                        <td class="border px-4 py-2">{{ order.id }}</td>
+                        <td class="border px-4 py-2">{{ order.customerName }}</td>
+                        <td class="border px-4 py-2">{{ order.status }}</td>
+                        <td class="border px-4 py-2">
+                            <button (click)="cancelOrder(order.id)"
+                                class="p-button p-button-rounded p-button-danger">Cancel</button>
+                            <button (click)="deliverOrder(order.id)"
+                                class="p-button p-button-rounded p-button-success ml-2">Deliver</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

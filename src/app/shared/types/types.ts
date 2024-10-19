@@ -6,11 +6,12 @@ export interface Ingredient {
 }
 
 export interface User {
-  id?: number;
+  id?: number | string;
   firstName: string;
   lastName: string;
   email: string;
   role: string;
+  nit: string;
 }
 
 export interface LoginUser {
@@ -36,4 +37,24 @@ export interface Dish {
   photoUrl?: string | File;
   ingredients: Ingredient[];
   dishIngredients?: any[];
+}
+
+export interface OrderDetail {
+  id: number;
+  dishId: number;
+  dishName: string;
+  quantity: number;
+  price: number;
+}
+
+export interface Order {
+  id: number;
+  customerName: string;
+  orderDate: string; // Use string to represent date in ISO format
+  totalAmount: number;
+  status: string;
+  orderDetails: OrderDetail[];
+  userName: string;
+  userEmail: string;
+  orderNumber: number;
 }
