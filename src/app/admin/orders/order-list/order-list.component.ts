@@ -4,10 +4,11 @@ import { Order } from '../../../shared/types/types';
 import { MessageService } from 'primeng/api';
 import { OrderService } from '../../../shared/service/order.service';
 import { CommonModule } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-order-list',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, ToastModule],
   providers: [MessageService],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.scss',
